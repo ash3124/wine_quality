@@ -2,13 +2,13 @@ import streamlit as st
 import joblib
 import pandas as pd
 
+# Load model
 model = joblib.load("model.pkl")
 
 st.title("🍷 Wine Quality Predictor")
 
-st.write("Enter values:")
+st.write("Enter wine chemical properties:")
 
-# Inputs (MATCH your dataset columns EXACTLY)
 fixed_acidity = st.number_input("fixed acidity")
 volatile_acidity = st.number_input("volatile acidity")
 citric_acid = st.number_input("citric acid")
@@ -21,7 +21,7 @@ pH = st.number_input("pH")
 sulphates = st.number_input("sulphates")
 alcohol = st.number_input("alcohol")
 
-if st.button("Predict"):
+if st.button("Predict Quality"):
 
     input_data = pd.DataFrame([[
         fixed_acidity, volatile_acidity, citric_acid,
@@ -29,12 +29,12 @@ if st.button("Predict"):
         total_sulfur_dioxide, density, pH,
         sulphates, alcohol
     ]], columns=[
-        'fixed acidity','volatile acidity','citric acid',
-        'residual sugar','chlorides','free sulfur dioxide',
-        'total sulfur dioxide','density','pH',
-        'sulphates','alcohol'
+        "fixed acidity", "volatile acidity", "citric acid",
+        "residual sugar", "chlorides", "free sulfur dioxide",
+        "total sulfur dioxide", "density", "pH",
+        "sulphates", "alcohol"
     ])
 
     prediction = model.predict(input_data)[0]
 
-    st.success(f"Predicted Quality: {prediction}")
+    st.success(f"🍷 Predicted Wine Quality: {prediction}")
